@@ -2,6 +2,6 @@ package server
 
 import "fmt"
 
-func Launch() {
+func Start() {
 	fmt.Println("This is server.")
 }

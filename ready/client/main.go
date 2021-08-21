@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	client.Launch()
+	client.Start()
 }
