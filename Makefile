@@ -31,10 +31,10 @@ client:
 all: fmt server client
 
 test-server:
-	${TARGET_BIN}/${SERVER_EXE_NAME} -httpAddr=:80 -log="./bin/log.txt"
+	${TARGET_BIN}/${SERVER_EXE_NAME} -httpAddr=:80 -domain="tinso.vaiwan.com" -log="./bin/log.txt"
 
 test-client:
-	${TARGET_BIN}/${CLIENT_EXE_NAME} -httpAddr=80
+	${TARGET_BIN}/${CLIENT_EXE_NAME} -config=${TARGET_BIN}/config.yml start name1
 
 test-all: test-server test-client
 
