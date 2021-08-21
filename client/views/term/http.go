@@ -98,7 +98,7 @@ func truncatePath(path string) string {
 	// This is a workaround for a bug in termbox-go. Remove it when this issue is fixed:
 	// https://github.com/nsf/termbox-go/pull/21
 	if len(path) > pathMaxLength {
-		out := make([]byte, pathMaxLength, pathMaxLength)
+		out := make([]byte, pathMaxLength)
 		length := 0
 		for {
 			r, size := utf8.DecodeRuneInString(path[length:])

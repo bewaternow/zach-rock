@@ -17,7 +17,7 @@ type TermView struct {
 	flush    chan int
 	shutdown chan int
 	redraw   *util.Broadcast
-	subviews []mvc.View
+	// subviews []mvc.View
 	log.Logger
 	*area
 }
@@ -98,20 +98,20 @@ func (v *TermView) draw() {
 		v.APrintf(termbox.ColorYellow, 30, 0, updateMsg)
 	}
 
-	v.APrintf(termbox.ColorBlue|termbox.AttrBold, 0, 0, "Let's rock!")
+	v.APrintf(termbox.ColorBlue|termbox.AttrBold, 0, 1, "Let's rock!	------------------------ Zach.Lu")
 	statusStr, statusColor := connStatusRepr(state.GetConnStatus())
-	v.APrintf(statusColor, 0, 2, "%-30s%s", "Tunnel Status", statusStr)
+	v.APrintf(statusColor, 0, 3, "%-30s%s", "Tunnel Status", statusStr)
 
-	v.Printf(0, 3, "%-30s%s/%s", "Version", state.GetClientVersion(), state.GetServerVersion())
-	var i int = 4
+	v.Printf(0, 4, "%-30s%s/%s", "Version", state.GetClientVersion(), state.GetServerVersion())
+	var i int = 5
 	for _, t := range state.GetTunnels() {
 		v.Printf(0, i, "%-30s%s -> %s", "Forwarding", t.PublicUrl, t.LocalAddr)
 		i++
 	}
-	v.Printf(0, i+0, "%-30s%s", "Web Interface", v.ctl.GetWebInspectAddr())
+	// v.Printf(0, i+0, "%-30s%s", "Web Interface", v.ctl.GetWebInspectAddr())
 
-	connMeter, connTimer := state.GetConnectionMetrics()
-	v.Printf(0, i+1, "%-30s%d", "# Conn", connMeter.Count())
+	_, connTimer := state.GetConnectionMetrics()
+	// v.Printf(0, i+1, "%-30s%d", "# Conn", connMeter.Count())
 
 	msec := float64(time.Millisecond)
 	v.Printf(0, i+2, "%-30s%.2fms", "Avg Conn Time", connTimer.Mean()/msec)
