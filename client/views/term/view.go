@@ -72,11 +72,11 @@ func (v *TermView) draw() {
 	case mvc.UpdateNone:
 		updateMsg = ""
 	case mvc.UpdateInstalling:
-		updateMsg = "ngrok is updating"
+		updateMsg = "client is updating"
 	case mvc.UpdateReady:
-		updateMsg = "ngrok has updated: restart ngrok for the new version"
+		updateMsg = "client has updated: restart client for the new version"
 	case mvc.UpdateAvailable:
-		updateMsg = "new version available at https://ngrok.com"
+		updateMsg = "new version available at future"
 	default:
 		pct := float64(updateStatus) / 100.0
 		const barLength = 25
@@ -98,7 +98,7 @@ func (v *TermView) draw() {
 		v.APrintf(termbox.ColorYellow, 30, 0, updateMsg)
 	}
 
-	v.APrintf(termbox.ColorBlue|termbox.AttrBold, 0, 0, "ngrok")
+	v.APrintf(termbox.ColorBlue|termbox.AttrBold, 0, 0, "Let's rock!")
 	statusStr, statusColor := connStatusRepr(state.GetConnStatus())
 	v.APrintf(statusColor, 0, 2, "%-30s%s", "Tunnel Status", statusStr)
 

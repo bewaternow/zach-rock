@@ -59,7 +59,6 @@ func LoadConfiguration(opts *Options) (config *Configuration, err error) {
 		return
 	}
 
-	// try to parse the old .ngrok format for backwards compatibility
 	matched := false
 	content := strings.TrimSpace(string(configBuf))
 	if matched, err = regexp.MatchString("^[0-9a-zA-Z_\\-!]+$", content); err != nil {
@@ -141,7 +140,7 @@ func LoadConfiguration(opts *Options) (config *Configuration, err error) {
 	}
 
 	switch opts.command {
-	// start a single tunnel, the default, simple ngrok behavior
+	// start a single tunnel, the default, simple behavior
 	case "default":
 		config.Tunnels = make(map[string]*TunnelConfiguration)
 		config.Tunnels["default"] = &TunnelConfiguration{
@@ -214,7 +213,7 @@ func defaultPath() string {
 		homeDir = user.HomeDir
 	}
 
-	return path.Join(homeDir, ".ngrok")
+	return path.Join(homeDir, "zach-rock")
 }
 
 func normalizeAddress(addr string, propName string) (string, error) {

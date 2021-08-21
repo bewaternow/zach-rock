@@ -123,7 +123,7 @@ func DialHttpProxy(proxyUrl, addr, typ string, tlsCfg *tls.Config) (conn *logged
 	case "https":
 		proxyTlsConfig = new(tls.Config)
 	default:
-		err = fmt.Errorf("Proxy URL scheme must be http or https, got: %s", parsedUrl.Scheme)
+		err = fmt.Errorf("proxy URL scheme must be http or https, got: %s", parsedUrl.Scheme)
 		return
 	}
 
@@ -141,7 +141,7 @@ func DialHttpProxy(proxyUrl, addr, typ string, tlsCfg *tls.Config) (conn *logged
 	if proxyAuth != "" {
 		req.Header.Set("Proxy-Authorization", proxyAuth)
 	}
-	req.Header.Set("User-Agent", "Mozilla/5.0 (compatible; ngrok)")
+	req.Header.Set("User-Agent", "Mozilla/5.0 (compatible; zach-rock)")
 	req.Write(conn)
 
 	// read the proxy's response
@@ -152,7 +152,7 @@ func DialHttpProxy(proxyUrl, addr, typ string, tlsCfg *tls.Config) (conn *logged
 	resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-		err = fmt.Errorf("Non-200 response from proxy server: %s", resp.Status)
+		err = fmt.Errorf("non-200 response from proxy server: %s", resp.Status)
 		return
 	}
 

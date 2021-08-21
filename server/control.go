@@ -97,7 +97,7 @@ func NewControl(ctlConn conn.Conn, authMsg *msg.Auth) {
 	ctlConn.AddLogPrefix(c.id)
 
 	if authMsg.Version != version.Proto {
-		failAuth(fmt.Errorf("incompatible versions. Server %s, client %s. Download a new version at http://ngrok.com", version.MajorMinor(), authMsg.Version))
+		failAuth(fmt.Errorf("incompatible versions. Server %s, client %s. Download a new version with zach", version.MajorMinor(), authMsg.Version))
 		return
 	}
 

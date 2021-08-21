@@ -28,7 +28,7 @@ server:
 client:
 	go build -tags '$(BUILD_TAGS)' -o ${TARGET_BIN}/${CLIENT_EXE_NAME} ${SOURCE_DIR}/client
 
-all: fmt server client
+all: server client
 
 test-server:
 	${TARGET_BIN}/${SERVER_EXE_NAME} -httpAddr=:80 -domain="tinso.vaiwan.com" -log="./bin/log.txt"

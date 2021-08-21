@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	defaultServerAddr   = "ngrokd.ngrok.com:443"
+	defaultServerAddr   = "zach-rock.com:443"
 	defaultInspectAddr  = "127.0.0.1:4040"
 	pingInterval        = 20 * time.Second
 	maxPongLatency      = 15 * time.Second
@@ -409,7 +409,6 @@ Content-Length: %d
 	c.update()
 }
 
-// Hearbeating to ensure our connection ngrokd is still live
 func (c *ClientModel) heartbeat(lastPongAddr *int64, conn conn.Conn) {
 	lastPing := time.Unix(atomic.LoadInt64(lastPongAddr)-1, 0)
 	ping := time.NewTicker(pingInterval)

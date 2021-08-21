@@ -15,7 +15,7 @@ import (
 
 const (
 	NotAuthorized = `HTTP/1.0 401 Not Authorized
-WWW-Authenticate: Basic realm="ngrok"
+WWW-Authenticate: Basic realm="zach-rock"
 Content-Length: 23
 
 Authorization required
