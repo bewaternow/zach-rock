@@ -1,4 +1,4 @@
-.PHONY:  server client contributors test
+.PHONY:  server client all contributors test-server test-client test-all
 export GOPROXY=https://goproxy.cn
 export CGO_ENABLED=0
 #===================================================================================
@@ -12,6 +12,8 @@ BUILD_INFO		:= $(shell git log --oneline --no-merges | grep $(BUILD_ID_SHORT))
 BUILD_TAGS				:= release
 SOURCE_DIR				:= zach-rock/ready
 TARGET_BIN 				:= bin
+SERVER_EXE_NAME			:= rock
+CLIENT_EXE_NAME			:= roll
 
 fmt:
 	go fmt client/*
@@ -21,16 +23,20 @@ clean:
 	rm bin/*
 
 server:
-	go build -tags '$(BUILD_TAGS)' -o ${TARGET_BIN}/rock ${SOURCE_DIR}/server
+	go build -tags '$(BUILD_TAGS)' -o ${TARGET_BIN}/${SERVER_EXE_NAME} ${SOURCE_DIR}/server
 
 client:
-	go build -tags '$(BUILD_TAGS)' -o ${TARGET_BIN}/roll ${SOURCE_DIR}/client
+	go build -tags '$(BUILD_TAGS)' -o ${TARGET_BIN}/${CLIENT_EXE_NAME} ${SOURCE_DIR}/client
 
 all: fmt server client
 
-test: 
-	${TARGET_BIN}/rock
-	${TARGET_BIN}/roll
+test-server:
+	${TARGET_BIN}/${SERVER_EXE_NAME} -httpAddr=:80 -log="./bin/log.txt"
+
+test-client:
+	${TARGET_BIN}/${CLIENT_EXE_NAME} -httpAddr=80
+
+test-all: test-server test-client
 
 contributors:
 	echo "zach-rock 的参与者, 无论贡献大小:\n" > CONTRIBUTORS
