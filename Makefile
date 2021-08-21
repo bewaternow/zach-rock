@@ -31,7 +31,7 @@ client:
 all: server client
 
 test-server:
-	${TARGET_BIN}/${SERVER_EXE_NAME} -httpAddr=:80 -domain="tinso.vaiwan.com" -log="./bin/log.txt"
+	${TARGET_BIN}/${SERVER_EXE_NAME} -httpAddr=:80 -domain="zach-rock.com" -log="./bin/log.txt"
 
 test-client:
 	${TARGET_BIN}/${CLIENT_EXE_NAME} -config=${TARGET_BIN}/config.yml start web ssh
