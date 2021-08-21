@@ -1,4 +1,4 @@
-.PHONY:  release-server release-client contributors
+.PHONY:  server client contributors test
 export GOPROXY=https://goproxy.cn
 export CGO_ENABLED=0
 #===================================================================================
@@ -10,6 +10,7 @@ BUILD_EMAIL    	:= $(shell git config --get user.email)
 BUILD_INFO		:= $(shell git log --oneline --no-merges | grep $(BUILD_ID_SHORT))
 #===================================================================================
 BUILD_TAGS				:= release
+SOURCE_DIR				:= zach-rock/ready
 TARGET_BIN 				:= bin
 
 fmt:
@@ -19,13 +20,17 @@ fmt:
 clean:
 	rm bin/*
 
-rock-server:
-	go build -tags '$(BUILD_TAGS)' -o ${TARGET_BIN}/rock zach-rock/server
+server:
+	go build -tags '$(BUILD_TAGS)' -o ${TARGET_BIN}/rock ${SOURCE_DIR}/server
 
-rock-client:
-	go build -tags '$(BUILD_TAGS)' -o ${TARGET_BIN}/roll zach-rock/client
+client:
+	go build -tags '$(BUILD_TAGS)' -o ${TARGET_BIN}/roll ${SOURCE_DIR}/client
 
-rock-all: fmt rock-server rock-client
+all: fmt server client
+
+test: 
+	${TARGET_BIN}/rock
+	${TARGET_BIN}/roll
 
 contributors:
 	echo "zach-rock 的参与者, 无论贡献大小:\n" > CONTRIBUTORS

@@ -1,7 +1,7 @@
-package main
+package client
 
 import "fmt"
 
-func main() {
+func Launch() {
 	fmt.Println("This is client.")
 }
