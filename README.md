@@ -37,6 +37,25 @@ Email: 1049655193@qq.com
 
 ### 其他版本的，自行搜索 go 交叉编译。
 
-# 最后：Let's rock! 开源万岁！
-![image](https://user-images.githubusercontent.com/62736001/130325475-5c0482c6-3c11-4c92-af97-e418e0f2d19e.png)
+### 示例配置
 
+`config.yml`
+
+```
+server_addr: "zach-rock.com:4443"
+
+tunnels:
+  web:
+    subdomain: "client"
+    proto:
+      http: 127.0.0.1:80
+  ssh:
+    proto:
+      tcp: 22
+    remote_port: 50018
+
+```
+
+# 最后：Let's rock! 开源万岁！
+
+![image](https://user-images.githubusercontent.com/62736001/130325475-5c0482c6-3c11-4c92-af97-e418e0f2d19e.png)
