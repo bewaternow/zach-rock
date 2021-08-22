@@ -1,8 +1,8 @@
-### 前言
+### 一、前言
 
 网上的内网穿透，大都不合我的心意，所以我想自己写一个，最初的动机是自己需要用，顺便带大家用一用，结果还是为了省事，借用了 ngrok 的逻辑，按照我的需要进行优化。我会基于之前的使用经验，不断优化改造。
 
-### 特别说明
+### 二、特别说明
 
 1、本次开放主要是帮助大家本地的开发，不是为了收费。所以没有任何收费逻辑，但后期可能会考虑改成数据库存储隧道。  
 2、不支持 443 端口（即 https），如果确实需要 https 的支持，就等我确实闲了，来更新。
@@ -15,7 +15,9 @@
 
 `make all`
 
-### 关于部署
+### 三、关于部署
+
+#### 1、配置和启动
 
 我建议大家多看看 `Makefile` 里面的命令。比如用以上命令生成了双端，服务端的启动方式：
 
@@ -49,7 +51,47 @@ tunnels:
 
 ```
 
-### Windows 版
+### 2、如何让服务端在后台守护进程
+
+#### 2.1 可以尝试 systemd
+
+参考链接 [https://www.cnblogs.com/zhangyy3/p/14759993.html]
+友情提醒：确保这里面的执行命令是全局可用的。
+
+#### 2.2 supervisor
+
+示例：
+
+```Bash
+/opt/rock -httpAddr=:80 -domain="zach-rock.com" -log="/opt/log.txt"
+```
+
+```Vim
+[program:zach-rock]
+command = sh ./start.sh
+directory   = /opt
+
+autostart=true
+autorestart=true
+redirect_stderr         = true
+stdout_logfile_maxbytes = 50MB
+stdout_logfile_backups  = 10
+stdout_logfile          = /var/log/supervisor-zach-rock.log
+
+stderr_logfile_maxbytes = 50MB
+stderr_logfile_backups  = 10
+stderr_logfile          = /var/log/supervisor-zach-rock.log
+```
+
+#### 2.3 简单的命令（感觉不是很稳定，但我就是用的这个，省事 😂）
+
+```Bash
+nohup /opt/start.sh &
+```
+
+### 3、生成服务端和客户端
+
+#### Windows 版
 
 ```
 服务端 x86：GOOS=windows GOARCH=386 make server
@@ -58,7 +100,7 @@ tunnels:
 客户端 x64：GOOS=windows GOARCH=amd64 make client
 ```
 
-### Linux 版
+#### Linux 版
 
 ```
 服务端 x86：GOOS=linux GOARCH=386 make server
@@ -67,7 +109,7 @@ tunnels:
 客户端 x64：GOOS=linux GOARCH=amd64 make client
 ```
 
-### MacOS 版
+#### MacOS 版
 
 ```
 服务端 x86：GOOS=darwin GOARCH=386 make server
@@ -76,11 +118,12 @@ tunnels:
 客户端 x64：GOOS=darwin GOARCH=amd64 make client
 ```
 
-### 其他版本的，自行搜索 go 交叉编译。
+#### 其他版本的，自行搜索 go 交叉编译。
 
 ![image](https://user-images.githubusercontent.com/62736001/130325475-5c0482c6-3c11-4c92-af97-e418e0f2d19e.png)
 
 # 最后：Let's rock! 开源万岁！
 
+QQ 群: 1️⃣ 597337923  
 Author: Zach.Lu  
 Email: 1049655193@qq.com

@@ -98,7 +98,7 @@ func (v *TermView) draw() {
 		v.APrintf(termbox.ColorYellow, 30, 0, updateMsg)
 	}
 
-	v.APrintf(termbox.ColorBlue|termbox.AttrBold, 0, 1, "Let's rock!	------------------------ Zach.Lu")
+	v.APrintf(termbox.ColorLightMagenta|termbox.AttrBold, 0, 1, "Let's rock!	------------------------ Zach.Lu")
 	statusStr, statusColor := connStatusRepr(state.GetConnStatus())
 	v.APrintf(statusColor, 0, 3, "%-30s%s", "Tunnel Status", statusStr)
 
