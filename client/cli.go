@@ -13,25 +13,25 @@ Options:
 
 const usage2 string = `
 Examples:
-	ngrok 80
-	ngrok -subdomain=example 8080
-	ngrok -proto=tcp 22
-	ngrok -hostname="example.com" -httpauth="user:password" 10.0.0.1
+	roll 80
+	roll -subdomain=example 8080
+	roll -proto=tcp 22
+	roll -hostname="example.com" -httpauth="user:password" 10.0.0.1
 
 
-Advanced usage: ngrok [OPTIONS] <command> [command args] [...]
+Advanced usage: roll [OPTIONS] <command> [command args] [...]
 Commands:
-	ngrok start [tunnel] [...]    Start tunnels by name from config file
-	ngork start-all               Start all tunnels defined in config file
-	ngrok list                    List tunnel names from config file
-	ngrok help                    Print help
-	ngrok version                 Print ngrok version
+	roll start [tunnel] [...]    Start tunnels by name from config file
+	roll start-all               Start all tunnels defined in config file
+	roll list                    List tunnel names from config file
+	roll help                    Print help
+	roll version                 Print roll version
 
 Examples:
-	ngrok start www api blog pubsub
-	ngrok -log=stdout -config=ngrok.yml start ssh
-	ngrok start-all
-	ngrok version
+	roll start www api blog pubsub
+	roll -log=stdout -config=roll.yml start ssh
+	roll start-all
+	roll version
 
 `
 
@@ -58,7 +58,7 @@ func ParseArgs() (opts *Options, err error) {
 	config := flag.String(
 		"config",
 		"",
-		"Path to ngrok configuration file. (default: $HOME/.ngrok)")
+		"Path to roll configuration file. (default: $HOME/.roll)")
 
 	logto := flag.String(
 		"log",
@@ -73,7 +73,7 @@ func ParseArgs() (opts *Options, err error) {
 	authtoken := flag.String(
 		"authtoken",
 		"",
-		"Authentication token for identifying an ngrok.com account")
+		"Authentication token for identifying an roll.com account")
 
 	httpauth := flag.String(
 		"httpauth",
@@ -83,12 +83,12 @@ func ParseArgs() (opts *Options, err error) {
 	subdomain := flag.String(
 		"subdomain",
 		"",
-		"Request a custom subdomain from the ngrok server. (HTTP only)")
+		"Request a custom subdomain from the roll server. (HTTP only)")
 
 	hostname := flag.String(
 		"hostname",
 		"",
-		"Request a custom hostname from the ngrok server. (HTTP only) (requires CNAME of your DNS)")
+		"Request a custom hostname from the roll server. (HTTP only) (requires CNAME of your DNS)")
 
 	protocol := flag.String(
 		"proto",
@@ -124,8 +124,8 @@ func ParseArgs() (opts *Options, err error) {
 		os.Exit(0)
 	case "":
 		err = fmt.Errorf("error: Specify a local port to tunnel to, or " +
-			"an ngrok command.\n\nExample: To expose port 80, run " +
-			"'ngrok 80'")
+			"an roll command.\n\nExample: To expose port 80, run " +
+			"'roll 80'")
 		return
 
 	default:
