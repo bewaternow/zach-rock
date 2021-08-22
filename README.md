@@ -120,7 +120,8 @@ nohup /opt/start.sh &
 
 #### 其他版本的，自行搜索 go 交叉编译。
 
-![image](https://user-images.githubusercontent.com/62736001/130325475-5c0482c6-3c11-4c92-af97-e418e0f2d19e.png)
+![image](https://user-images.githubusercontent.com/62736001/130351228-13d44aac-f3c0-4f8d-a93b-067c9610b6af.png)
+
 
 # 最后：Let's rock! 开源万岁！
 
