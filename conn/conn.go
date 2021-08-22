@@ -13,7 +13,7 @@ import (
 	"sync"
 	"zach-rock/log"
 
-	vhost "github.com/inconshreveable/go-vhost"
+	vhost "zach-rock/vhost"
 )
 
 type Conn interface {
