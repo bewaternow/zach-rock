@@ -20,10 +20,11 @@
 我建议大家多看看 `Makefile` 里面的命令。比如用以上命令生成了双端，服务端的启动方式：
 
 ```Bash
--httpAddr=:80 -domain="*.你的域名" -log="./bin/log.txt"
+./rock -httpAddr=:80 -domain="*.你的域名" -tunnelAddr=zach-rock.com:4443 -log="./bin/log.txt"
 ```
 
-这样就开启了服务端。如何保证服务端持续运行，建议使用 `supervisor` 或 `systemd` 。客户端的启动方式：
+记得把通信的端口开起来，如果你用的是默认的 4443 端口，那你就记得开启 4443 端口，这样就开启了服务端。
+如何保证服务端持续运行，建议使用 `supervisor` 或 `systemd` 。客户端的启动方式：
 
 ```Bash
 ./roll -config=./config.yml start web ssh
