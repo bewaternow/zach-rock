@@ -1,6 +1,7 @@
 package term
 
 import (
+	"time"
 	"unicode/utf8"
 	"zach-rock/client/mvc"
 	"zach-rock/log"
@@ -75,8 +76,10 @@ func (v *HttpView) Render() {
 		path := truncatePath(txn.Req.URL.Path)
 		v.Printf(0, 3+i, "%s %v", txn.Req.Method, path)
 		if txn.Resp != nil {
-			v.APrintf(colorFor(txn.Resp.Status), 30, 3+i, "%s", txn.Resp.Status)
+			v.APrintf(colorFor(txn.Resp.Status), 40, 3+i, "%s", txn.Resp.Status)
 		}
+
+		v.APrintf(termbox.ColorCyan, 50, 3+i, "%s", time.Now().Format("2006-01-02 15:04:05"))
 	}
 	v.termView.Flush()
 }

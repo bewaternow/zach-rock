@@ -24,7 +24,10 @@ type TermView struct {
 
 func NewTermView(ctl mvc.Controller) *TermView {
 	// initialize terminal display
-	termbox.Init()
+	err := termbox.Init()
+	if err != nil {
+		return nil
+	}
 
 	w, _ := termbox.Size()
 
@@ -116,7 +119,11 @@ func (v *TermView) draw() {
 	msec := float64(time.Millisecond)
 	v.Printf(0, i+2, "%-30s%.2fms", "Avg Conn Time", connTimer.Mean()/msec)
 
-	termbox.Flush()
+	err := termbox.Flush()
+
+	if err != nil {
+		return 
+	}
 }
 
 func (v *TermView) run() {
@@ -131,7 +138,10 @@ func (v *TermView) run() {
 		v.Debug("Waiting for update")
 		select {
 		case <-v.flush:
-			termbox.Flush()
+			err := termbox.Flush()
+			if err != nil {
+				return
+			}
 
 		case <-v.updates:
 			v.draw()
