@@ -1,0 +1,11 @@
+version: "3"
+services:
+  backend:
+    hostname: zach-rock-server
+    container_name: zach-rock-server
+    image: zach-rock/zach-rock-server:latest
+    restart: always
+    privileged: false
+    ports:
+      - 80:80
+      - 4443:4443
