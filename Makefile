@@ -41,3 +41,28 @@ test-all: test-server test-client
 contributors:
 	echo "zach-rock 的参与者, 无论贡献大小:\n" > CONTRIBUTORS
 	git log --raw | grep "^Author: " | sort | uniq | cut -d ' ' -f2- | sed 's/^/- /' | cut -d '<' -f1 >> CONTRIBUTORS
+
+#===================================================================================
+DOCKER_APP_NAME				:=	zach-rock-server
+DOCKER_IMAGE_TAG			:=	$(shell git rev-parse HEAD)
+DOCKER_REPOSTORY			:=	zach-rock/$(DOCKER_APP_NAME)
+DEPLOY_ADDR					:=	root@127.0.0.1
+DEPLOY_PORT					:=	22
+DRPLOY_DOCKER				:=	docker
+DRPLOY_DOCKER_COMPOSE		:=	docker-compose
+DEPLOY_DOCKER_FILE			:=	Dockerfile
+
+.PHONY:  deploy-prepare deploy-server
+
+deploy-prepare:
+	ssh-copy-id -i ~/.ssh/id_rsa.pub -p $(DEPLOY_PORT) $(DEPLOY_ADDR)
+
+deploy-prod: 
+	GOOS=linux GOARCH=amd64 make server 
+	ssh -p $(DEPLOY_PORT) $(DEPLOY_ADDR) "mkdir -p /opt/$(DOCKER_APP_NAME)"
+	scp -P $(DEPLOY_PORT) ./${DEPLOY_DOCKER_FILE} $(DEPLOY_ADDR):/opt/$(DOCKER_APP_NAME)/Dockerfile
+	scp -P $(DEPLOY_PORT) ./$(TARGET_BIN)/rock $(DEPLOY_ADDR):/opt/$(DOCKER_APP_NAME)/rock
+	ssh -p $(DEPLOY_PORT) $(DEPLOY_ADDR) "cd /opt/$(DOCKER_APP_NAME) && docker build -t $(DOCKER_REPOSTORY):latest -t $(DOCKER_REPOSTORY):$(DOCKER_IMAGE_TAG) ."
+	scp -P $(DEPLOY_PORT) ./docker-compose.yml $(DEPLOY_ADDR):/opt/$(DOCKER_APP_NAME)/docker-compose.yml
+	ssh -p $(DEPLOY_PORT) $(DEPLOY_ADDR) "cd  /opt/$(DOCKER_APP_NAME) && $(DRPLOY_DOCKER_COMPOSE) down"
+	ssh -p $(DEPLOY_PORT) $(DEPLOY_ADDR) "cd  /opt/$(DOCKER_APP_NAME) && $(DRPLOY_DOCKER_COMPOSE) up -d"
