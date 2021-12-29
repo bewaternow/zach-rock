@@ -132,3 +132,11 @@ nohup /opt/start.sh &
 QQ 群: 1️⃣ 597337923  
 Author: Zach.Lu  
 Email: 1049655193@qq.com
+
+# 常见问题
+
+## 1、bash: /usr/local/bin/docker-compose: Permission denied
+
+```
+sudo chmod +x /usr/local/bin/docker-compose;
+```
